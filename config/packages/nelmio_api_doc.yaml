@@ -1,0 +1,51 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Notes application
+            description: This is a simple application for training frontend developers to deal with API endpoints
+            version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value: Bearer {jwt}'
+                name: Authorization
+                in: header
+        paths:
+            /api/auth/login:
+                post:
+                    tags:
+                        - Login & Registration
+                    description: This endpoint needed for obtain Authorization token for getting access to notes application
+                    security: []
+                    parameters:
+                        - name: body
+                          in: body
+                          schema:
+                              type: object
+                              properties:
+                                  username:
+                                      type: string
+                                      example: "Th233Hack3r"
+                                  password:
+                                      type: string
+                                      example: "SecurePa$$word111"
+                    responses:
+                        '200':
+                            description: Valid credentials
+                            schema:
+                                type: object
+                                properties:
+                                    token:
+                                        type: string
+                                        example: "47a89f971deec508c99620639f9fb319"
+                                    issuedAt:
+                                        type: datetime
+                                        example: "2019-07-24T23:14:34+03:00"
+                                    ttl:
+                                        type: integer
+                                        example: 86400
+                        '401':
+                            description: Invalid credentials
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
